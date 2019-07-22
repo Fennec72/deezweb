@@ -1,0 +1,68 @@
+body {
+    margin: 0;
+}
+
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+nav {
+    background-color: darkslategrey;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+nav a{
+    color: aliceblue;
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-right: 1px solid aliceblue;
+    text-decoration: none;
+}
+
+nav a:hover {
+    color: yellowgreen;
+}
+
+/**
+ * Composant de musique
+ */
+
+.music {
+    background-color: silver;
+    display: inline-block;
+    min-width: 300px;
+    padding: 1rem;
+}
+
+.music img {
+    float: left;
+    max-width: 130px;
+    margin-right: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.music audio {
+    height: 22px;
+    margin: 0.5rem 0;   
+    display: block;
+}
+
+.music button {
+    background-color: #f00;
+}
+
+ /*********/
+
+button {
+    border: 0;
+    background-color: darkgray;
+    padding: 0.5rem 1rem;
+    border-radius: 3px;
+}
