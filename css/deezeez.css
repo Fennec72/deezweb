@@ -39,6 +39,7 @@ nav a:hover {
     display: inline-block;
     min-width: 300px;
     padding: 1rem;
+    margin-bottom: 0.5rem;
 }
 
 .music img {
@@ -66,3 +67,33 @@ button {
     padding: 0.5rem 1rem;
     border-radius: 3px;
 }
+
+form {
+    /* display: block; */
+    padding: 1rem 0;
+    border-bottom: 1px solid lightgreen;
+    margin-bottom: 0.6rem;
+    box-shadow: 0px 7px 14px 0px aquamarine;
+    min-width: auto;
+    border-radius: 5px;
+}
+
+label {
+    padding-left: 100px;
+}
+
+input[type=text] {
+    /*your styles here.....*/
+ }
+ input[type=submit] {
+    float: right;
+    height: 40px;
+    width: 40px;
+    font-size: 23px;
+    background-color: darkkhaki;
+    border-radius: 5px;
+
+ }
+ textarea{
+    /*your styles here.....*/
+ }
