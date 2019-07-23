@@ -76,6 +76,7 @@ form {
     box-shadow: 0px 7px 14px 0px aquamarine;
     min-width: auto;
     border-radius: 5px;
+    height: 40px;
 }
 
 label {
@@ -87,8 +88,8 @@ input[type=text] {
  }
  input[type=submit] {
     float: right;
-    height: 40px;
-    width: 40px;
+    height: 48px;
+    width: 48px;
     font-size: 23px;
     background-color: darkkhaki;
     border-radius: 5px;
