@@ -1,5 +1,6 @@
 body {
     margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .container {
@@ -83,8 +84,13 @@ label {
     padding-left: 100px;
 }
 
+label, input, select {
+   font-size: 1.2rem;
+}
+
 input[type=text] {
-    /*your styles here.....*/
+    min-height: 30px;
+    /* border */
  }
  input[type=submit] {
     float: right;
