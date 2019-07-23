@@ -27,11 +27,9 @@
         <h2>Recherche</h2>
         <p>recherche un titre sur deezer grâce au formulaire ci-dessous</p>
 
-        <h3>La recherche n'a donné aucun résultat...</h3>
-
-        <form action="">
+        <form id="search">
             <label for="titre">
-                Titre: <input type="text" id="titre" placeholder="Titre">
+                Titre: <input type="search" id="searchText" placeholder="Titre">
             </label>
             <label for="trierPar">
                 Triez par: <select id="trierPar">
@@ -44,8 +42,38 @@
                         <option value="annee">Année</option>
                     </select>
             </label>
-            <input type="submit" value="GO" class="submit">
+            <!-- <input type="submit" value="GO" class="submit"> -->
+            <button type="submit">Go!</button>
         </form>
+
+
+    <script src="https://unpkg.com/jquery"></script>
+    <script>
+        $(document).ready(function() {
+
+            $('form#search').on('submit', function(evt) {
+                evt.preventDefault();
+
+                const recherche = $('#searchText').val();
+
+                const requete = $.ajax({
+                    url : 'https://api.deezer.com/search?q=' + recherche + '&output=jsonp',
+                    dataType : 'jsonp' // Indique à jQuery qu'il recevra du JSONP
+                });
+
+                requete.done(function(reponse) {
+                    const musiques = reponse.data;
+
+                    console.log({ musiques })
+                });
+            });
+
+        });
+    </script>
+
+
+
+        <h3>La recherche n'a donné aucun résultat...</h3>
 
         <article class="music">
             <img src="https://cdns-images.dzcdn.net/images/cover/e2b36a9fda865cb2e9ed1476b6291a7d/500x500-000000-80-0-0.jpg" alt="">

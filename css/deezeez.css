@@ -92,13 +92,16 @@ input[type=text] {
     min-height: 30px;
     /* border */
  }
- input[type=submit] {
+ input[type=submit], button[type=submit] {
     float: right;
     height: 48px;
     width: 48px;
     font-size: 23px;
     background-color: darkkhaki;
     border-radius: 5px;
+    box-shadow: 1px 2px 5px rgba(180, 174, 93, 1);
+    padding: 0;
+    margin-right: 10px;
 
  }
  textarea{

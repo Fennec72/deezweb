@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Page de recherche</title>
+</head>
+<body>
+
+    <form id="search">
+        <input type="search" id="searchText" placeholder="Recherche...">
+        <button type="submit">Go!</button>
+    </form>
+
+    <div id="results"></div>
+
+    <script src="https://unpkg.com/jquery"></script>
+    <script>
+        $(document).ready(function() {
+
+            $('form#search').on('submit', function(evt) {
+                evt.preventDefault();
+
+                const recherche = $('#searchText').val();
+
+                const requete = $.ajax({
+                    url : 'https://api.deezer.com/search?q=' + recherche + '&output=jsonp',
+                    dataType : 'jsonp' // Indique à jQuery qu'il recevra du JSONP
+                });
+
+                requete.done(function(reponse) {
+                    const musiques = reponse.data;
+
+                    console.log({ musiques })
+                });
+            });
+
+        });
+    </script>
+
+</body>
+</html>
