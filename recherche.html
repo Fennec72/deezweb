@@ -27,7 +27,7 @@
         <h2>Recherche</h2>
         <p>recherche un titre sur deezer grâce au formulaire ci-dessous</p>
 
-        <form id="search">
+        <!-- <form id="search">
             <label for="titre">
                 Titre: <input type="search" id="searchText" placeholder="Titre">
             </label>
@@ -43,12 +43,19 @@
                     </select>
             </label>
             <!-- <input type="submit" value="GO" class="submit"> -->
-            <button type="submit">Go!</button>
+            <!--<button type="submit">Go!</button>
+        </form> -->
+
+
+        <form id="search">
+            <input type="search" name="q" id="q">
+            <input type="submit">
         </form>
 
+        <div id="songs"></div>
 
     <script src="https://unpkg.com/jquery"></script>
-    <script>
+    <!-- <script>
         $(document).ready(function() {
 
             $('form#search').on('submit', function(evt) {
@@ -69,7 +76,54 @@
             });
 
         });
-    </script>
+    </script> -->
+
+<script>
+    $(document).ready(function() {
+        
+        $('form#search').on('submit', onsubmit);
+    });
+
+    function onsubmit(event) {
+        event.preventDefault(); // Empêche le navigateur de recharger la page
+
+        const q = encodeURIComponent($('input#q').val()); // Récupère le valeur du <input> search
+        searchOnDeezer(q);
+    }
+    function searchOnDeezer(q) {
+        const API_URL = 'https://api.deezer.com/search';
+        const params = { q : q, output : 'jsonp' };
+    
+
+        const query = $.ajax({
+            url : API_URL,
+            data : params,
+            dataType : 'jsonp'
+        });
+
+        query.done(onSuccess); // Quand tout s'est bien passé
+        query.fail(onSuccess); // S'il ya eu un problème avec la requète
+    }
+
+    function onSuccess({ data: musics}) {
+        const htmlContent = musics.map(renderMusic).join('');
+        $('div#songs').html(htmlContent);
+    }
+    function onError(errorText) {
+        $('div#songs').html(`<p>Une erreur est survenue : ${errorText.statusText}</p>`);
+    }
+
+    function renderMusic(music) {// <p>${music.album_id}</p>
+        return `<article class="music">
+                    <img src="${music.album.cover}" alt="">
+                    <h3>${music.title}</h3>
+                    <p>${music.album_id.title}</p>
+                    <audio src="${music.preview}" controls></audio>
+                    <button>ajouter au favoris</button>
+                </article>`
+                console.log(music);
+    }
+</script>
 
     <!-- pour chosir le critère utilisé pour ordonner les résultats:
     stocker les résultat dans un array, puis utiliser Array.sort() ? -->
