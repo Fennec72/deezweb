@@ -35,12 +35,20 @@ nav a:hover {
  * Composant de musique
  */
 
+ #songs {
+     display: flex;
+     flex-flow: row wrap;
+ }
+
 .music {
+    flex-grow: 1;
     background-color: silver;
     display: inline-block;
     min-width: 300px;
     padding: 1rem;
-    margin-bottom: 0.5rem;
+    /* margin-bottom: 0.5rem; */
+    max-width: calc(50% - 10px);
+    margin: 2px 5px;
 }
 
 .music img {
@@ -92,6 +100,12 @@ input[type=text] {
     min-height: 30px;
     /* border */
  }
+
+input[type=search] {
+    font-size: 23px;
+}
+
+
  input[type=submit], button[type=submit] {
     float: right;
     height: 48px;
