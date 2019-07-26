@@ -27,25 +27,7 @@
         <h2>Recherche</h2>
         <p>recherche un titre sur deezer grâce au formulaire ci-dessous</p>
 
-        <!-- <form id="search">
-            <label for="titre">
-                Titre: <input type="search" id="searchText" placeholder="Titre">
-            </label>
-            <label for="trierPar">
-                Triez par: <select id="trierPar">
-                        <option value="album">Album</option>
-                        <option value="artiste">Artiste</option>
-                        <option value="musique">Musique</option>
-                        <option value="populaires">Les plus populaires</option>
-                        <option value="mieux">Les mieux notés</option>
-                        <option value="genre">Genre</option>
-                        <option value="annee">Année</option>
-                    </select>
-            </label>
-            <!-- <input type="submit" value="GO" class="submit"> -->
-            <!--<button type="submit">Go!</button>
-        </form> -->
-
+    
 
         <form id="search">
             <label for="titre">
@@ -71,28 +53,7 @@
         <div id="songs"></div>
 
     <script src="https://unpkg.com/jquery"></script>
-    <!-- <script>
-        $(document).ready(function() {
 
-            $('form#search').on('submit', function(evt) {
-                evt.preventDefault();
-
-                const recherche = $('#searchText').val();
-
-                const requete = $.ajax({
-                    url : 'https://api.deezer.com/search?q=' + recherche + '&output=jsonp',
-                    dataType : 'jsonp' // Indique à jQuery qu'il recevra du JSONP
-                });
-
-                requete.done(function(reponse) {
-                    const musiques = reponse.data;
-
-                    console.log({ musiques })
-                });
-            });
-
-        });
-    </script> -->
 
 <script>
 
@@ -143,7 +104,7 @@
         $('div#songs').html(`<p>Une erreur est survenue : ${errorText.statusText}</p>`);
     }
 
-    function renderMusic(music, index) {// <p>${music.album_id}</p> ${music.album_id.title}
+    function renderMusic(music, index) {
         return `<article class="music">
                     <img src="${music.album.cover}" alt="">
                     <h3>${music.title}</h3>
@@ -153,17 +114,10 @@
                     <button class="addFavorite" data-id="${index}">ajouter au favoris</button>
                 </article>`
 
-                    //  window.localStorage.setItem('favori', 'music.id'); 
-                    //  window.localStorage.removeItem('music.i);
-                console.log(music);
+                    
     }
 </script>
 
- 
-
-
-
-        <h3>La recherche n'a donné aucun résultat...</h3>
 
        
 
