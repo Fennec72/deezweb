@@ -69,11 +69,9 @@
                 function onRemoveFavorite() {
                     const id = $(this).attr('data-music-id');
                     window.localStorage.removeItem(id); 
+                    location.reload(true); 
                 }
 
-                $('#songs').click(function () {
-                    location.reload(true); 
-                });    // Reload page on button click.
 
                 function renderMusic(music, index) {// <p>${music.album_id}</p> ${music.album_id.title}
                     return `<article class="music">
