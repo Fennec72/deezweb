@@ -11,7 +11,7 @@
 <body>
 
     
-    <div class="fond2page">
+
         
         <nav>
             <div class="containerNav">
@@ -55,7 +55,9 @@
 
                     if (favoris.length == 0) {
                         $('#songs').html("<p>Vous n'avez pas encore choisi de favori</p>");
-                        // $('.reloadRandom') il faudrait que le bouton soit en display:none
+                        
+                        $(".reloadRandom").css("display","none");
+                        // passe le bouton "Choisir une autre musique" en display:none
                     }else{
 
                         let numRandom = Math.floor(Math.random()*favoris.length);
@@ -99,7 +101,7 @@
 
         </main>
 
-    </div><!-- Fin .fond2page -->
+    
     
 </body>
 </html>
