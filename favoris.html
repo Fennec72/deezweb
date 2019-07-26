@@ -44,9 +44,6 @@
                     // window.localStorage.getItem('favori', 'jmpp77');
                     // window.localStorage.setItem('favori', 'jmpp77');
                     // window.localStorage.removeItem(jmpp77');
-
-
-                    
                     
                     let favoris = [];
                     for (let key in window.localStorage) {
@@ -60,13 +57,23 @@
                     const htmlContent = favoris.map(renderMusic).join('');
                     $('div#songs').html(htmlContent);
 
+                    // $('#songs').on('click', '.removeFavorite', onRemoveFavorite).click(function){
+                    //     location.reload(true);
+                    // };
+                    // $('#songs').on('click', '.removeFavorite', onRemoveFavorite, location.reload(true));
                     $('#songs').on('click', '.removeFavorite', onRemoveFavorite);
+
+                    //.reload(true)
                 });
 
                 function onRemoveFavorite() {
                     const id = $(this).attr('data-music-id');
-                    window.localStorage.removeItem(id, JSON.stringify(music)); 
+                    window.localStorage.removeItem(id); 
                 }
+
+                $('#songs').click(function () {
+                    location.reload(true); 
+                });    // Reload page on button click.
 
                 function renderMusic(music, index) {// <p>${music.album_id}</p> ${music.album_id.title}
                     return `<article class="music">
