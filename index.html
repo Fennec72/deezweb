@@ -10,89 +10,96 @@
 </head>
 <body>
 
-    <nav>
-        <div class="container">
-            <ul>
-                <li><a href="index.html">Accueil</a></li>
-                <li><a href="recherche.html">Recherche</a></li>
-                <li><a href="favoris.html">Mes Favoris</a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <main class="container">
-
-        <h1>Projet 1 - Deezeez my project!</h1>
-
-        <h2>Une musique de vos favoris au hasard :</h2>
-
-        <div id="songs"></div>
-
-        <button class="reloadRandom">Choisir une autre musique</button>
+    
+    <div class="fond2page">
+        
+        <nav>
+            <div class="containerNav">
+                <ul>
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="recherche.html">Recherche</a></li>
+                    <li><a href="favoris.html">Mes Favoris</a></li>
+                </ul>
+            </div>
+        </nav>
 
 
-        <script src="https://unpkg.com/jquery"></script>
 
-        <script>
+        <main class="container">
 
-            function recupererFavoris() {
-                let favoris = [];
-                for (let key in window.localStorage) {
-                    if (window.localStorage.getItem(key) !== null) {
-                        favoris.push( JSON.parse(window.localStorage.getItem(key)) );
+            <h1>Projet 1 - Deezeez my project!</h1>
+
+            <h2>Une musique de vos favoris au hasard :</h2>
+
+            <div id="songs"></div>
+
+            <button class="reloadRandom">Choisir une autre musique</button>
+
+
+            <script src="https://unpkg.com/jquery"></script>
+
+            <script>
+
+                function recupererFavoris() {
+                    let favoris = [];
+                    for (let key in window.localStorage) {
+                        if (window.localStorage.getItem(key) !== null) {
+                            favoris.push( JSON.parse(window.localStorage.getItem(key)) );
+                        }
                     }
-                }
-                return favoris;
-            }
-
-            function genererFavorisRandom() {
-                let favoris = recupererFavoris();
-
-                if (favoris.length == 0) {
-                    $('#songs').html("<p>Vous n'avez pas encore choisi de favori</p>");
-                    // $('.reloadRandom') il faudrait que le bouton soit en display:none
-                }else{
-
-                    let numRandom = Math.floor(Math.random()*favoris.length);
-                    let favorisRandom = favoris[numRandom];
-
-                    let htmlContent = renderMusic(favorisRandom);
-                    $('div#songs').html(htmlContent);
+                    return favoris;
                 }
 
+                function genererFavorisRandom() {
+                    let favoris = recupererFavoris();
 
-            }
+                    if (favoris.length == 0) {
+                        $('#songs').html("<p>Vous n'avez pas encore choisi de favori</p>");
+                        // $('.reloadRandom') il faudrait que le bouton soit en display:none
+                    }else{
 
-            $(document).ready(function() {
-                genererFavorisRandom();
-                
+                        let numRandom = Math.floor(Math.random()*favoris.length);
+                        let favorisRandom = favoris[numRandom];
 
-                $('.reloadRandom').on('click', genererFavorisRandom);
-            });
-
-
-            function renderMusic(music, index) {
-                return `<article class="music">
-                    <img src="${music.album.cover}" alt="">
-                    <h3>${music.title}</h3>
-                    <p>${music.artist.name}</p>
-                    <p>${music.album.title}</p>
-                    <audio src="${music.preview}" controls></audio>
-                    </article>`
-
-            }
+                        let htmlContent = renderMusic(favorisRandom);
+                        $('div#songs').html(htmlContent);
+                    }
 
 
+                }
 
-           
+                $(document).ready(function() {
+                    genererFavorisRandom();
+                    
 
-        </script>
+                    $('.reloadRandom').on('click', genererFavorisRandom);
+                });
 
-        
 
-        
+                function renderMusic(music, index) {
+                    return `<article class="music">
+                        <img src="${music.album.cover}" alt="">
+                        <h3>${music.title}</h3>
+                        <p>${music.artist.name}</p>
+                        <p>${music.album.title}</p>
+                        <audio src="${music.preview}" controls></audio>
+                        </article>`
 
-    </main>
+                }
+
+
+
+            
+
+            </script>
+
+            
+
+            
+
+        </main>
+
+    </div><!-- Fin .fond2page -->
     
 </body>
 </html>

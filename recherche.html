@@ -10,120 +10,125 @@
 </head>
 <body>
 
-    <nav>
-        <div class="container">
-            <ul>
-                <li><a href="index.html">Accueil</a></li>
-                <li><a href="recherche.html">Recherche</a></li>
-                <li><a href="favoris.html">Mes Favoris</a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <main class="container">
-
-        <h1>Projet 1 - Deezeez my project!</h1>
-
-        <h2>Recherche</h2>
-        <p>recherche un titre sur deezer grâce au formulaire ci-dessous</p>
-
     
+    <div class="fond2page">
 
-        <form id="search">
-            <label for="titre">
-                <!-- Titre: <input type="search" id="searchText" placeholder="Titre"> -->
-                Titre: <input type="search" name="q" id="q" placeholder="Titre">
-            </label>
+        <nav>
+            <div class="containerNav">
+                <ul>
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="recherche.html">Recherche</a></li>
+                    <li><a href="favoris.html">Mes Favoris</a></li>
+                </ul>
+            </div>
+        </nav>
 
-            <label for="trierPar">
-                Triez par: <select id="trierPar">
-                        <option value="ALBUM_ASC">Album</option>
-                        <option value="ARTIST_ASC">Artiste</option>
-                        <option value="TRACK_ASC">Morceau</option>
-                        <!-- <option value="populaires">Les plus populaires</option>
-                        <option value="mieux">Les mieux notés</option>
-                        <option value="genre">Genre</option>
-                        <option value="annee">Année</option> -->
-                    </select>
-            </label>
-            
-            <input type="submit" value="GO!">
-        </form>
+        <main class="container">
 
-        <div id="songs"></div>
+            <h1>Projet 1 - Deezeez my project!</h1>
 
-    <script src="https://unpkg.com/jquery"></script>
+            <h2>Recherche</h2>
+            <p>recherche un titre sur deezer grâce au formulaire ci-dessous</p>
 
-
-<script>
-
-    let MUSICS_RESULTS = [];
-
-    $(document).ready(function() {
         
-        $('form#search').on('submit', onsubmit);
-        $('#songs').on('click', '.addFavorite', onAddFavorite);
-    });
 
-    function onAddFavorite() {
-        const id = $(this).attr('data-id');
-        const music = MUSICS_RESULTS[ id ];
-        window.localStorage.setItem(music.id, JSON.stringify(music)); 
-    }
+            <form id="search">
+                <label for="titre">
+                    <!-- Titre: <input type="search" id="searchText" placeholder="Titre"> -->
+                    Titre: <input type="search" name="q" id="q" placeholder="Titre">
+                </label>
 
-    function onsubmit(event) {
-        event.preventDefault(); // Empêche le navigateur de recharger la page
+                <label for="trierPar">
+                    Triez par: <select id="trierPar">
+                            <option value="ALBUM_ASC">Album</option>
+                            <option value="ARTIST_ASC">Artiste</option>
+                            <option value="TRACK_ASC">Morceau</option>
+                            <!-- <option value="populaires">Les plus populaires</option>
+                            <option value="mieux">Les mieux notés</option>
+                            <option value="genre">Genre</option>
+                            <option value="annee">Année</option> -->
+                        </select>
+                </label>
+                
+                <input type="submit" value="GO!">
+            </form>
 
-        const q = encodeURIComponent($('input#q').val()); // Récupère le valeur du <input> search
-        const order = encodeURIComponent($('select#trierPar').val()); // Récupère le valeur du <select>
-        searchOnDeezer(q, order);
-        console.log(order);
-    }
+            <div id="songs"></div>
 
-    function searchOnDeezer(q, order) {
-        const API_URL = 'https://api.deezer.com/search';
-        const params = { q : q, order : order , output : 'jsonp' };
-    
+        <script src="https://unpkg.com/jquery"></script>
 
-        const query = $.ajax({
-            url : API_URL,
-            data : params,
-            dataType : 'jsonp'
+
+    <script>
+
+        let MUSICS_RESULTS = [];
+
+        $(document).ready(function() {
+            
+            $('form#search').on('submit', onsubmit);
+            $('#songs').on('click', '.addFavorite', onAddFavorite);
         });
 
-        query.done(onSuccess); // Quand tout s'est bien passé
-        query.fail(onSuccess); // S'il ya eu un problème avec la requète
-    }
+        function onAddFavorite() {
+            const id = $(this).attr('data-id');
+            const music = MUSICS_RESULTS[ id ];
+            window.localStorage.setItem(music.id, JSON.stringify(music)); 
+        }
 
-    function onSuccess({ data: musics}) {
-        MUSICS_RESULTS = musics;
-        const htmlContent = musics.map(renderMusic).join('');
-        $('div#songs').html(htmlContent);
-    }
-    function onError(errorText) {
-        $('div#songs').html(`<p>Une erreur est survenue : ${errorText.statusText}</p>`);
-    }
+        function onsubmit(event) {
+            event.preventDefault(); // Empêche le navigateur de recharger la page
 
-    function renderMusic(music, index) {
-        return `<article class="music">
-                    <img src="${music.album.cover}" alt="">
-                    <h3>${music.title}</h3>
-                    <p>${music.artist.name}</p>
-                    <p>${music.album.title}</p>
-                    <audio src="${music.preview}" controls></audio>
-                    <button class="addFavorite" data-id="${index}">ajouter au favoris</button>
-                </article>`
+            const q = encodeURIComponent($('input#q').val()); // Récupère le valeur du <input> search
+            const order = encodeURIComponent($('select#trierPar').val()); // Récupère le valeur du <select>
+            searchOnDeezer(q, order);
+            console.log(order);
+        }
 
-                    
-    }
-</script>
+        function searchOnDeezer(q, order) {
+            const API_URL = 'https://api.deezer.com/search';
+            const params = { q : q, order : order , output : 'jsonp' };
+        
 
+            const query = $.ajax({
+                url : API_URL,
+                data : params,
+                dataType : 'jsonp'
+            });
 
-       
+            query.done(onSuccess); // Quand tout s'est bien passé
+            query.fail(onSuccess); // S'il ya eu un problème avec la requète
+        }
+
+        function onSuccess({ data: musics}) {
+            MUSICS_RESULTS = musics;
+            const htmlContent = musics.map(renderMusic).join('');
+            $('div#songs').html(htmlContent);
+        }
+        function onError(errorText) {
+            $('div#songs').html(`<p>Une erreur est survenue : ${errorText.statusText}</p>`);
+        }
+
+        function renderMusic(music, index) {
+            return `<article class="music">
+                        <img src="${music.album.cover}" alt="">
+                        <h3>${music.title}</h3>
+                        <p>${music.artist.name}</p>
+                        <p>${music.album.title}</p>
+                        <audio src="${music.preview}" controls></audio>
+                        <button class="addFavorite" data-id="${index}">ajouter au favoris</button>
+                    </article>`
+
+                        
+        }
+    </script>
+
 
         
 
-    </main>
+            
+
+        </main>
+
+</div><!-- Fin .fond2page -->
     
 </body>
 </html>

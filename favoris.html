@@ -10,71 +10,75 @@
 </head>
 <body>
 
-    <nav>
-        <div class="container">
-            <ul>
-                <li><a href="index.html">Accueil</a></li>
-                <li><a href="recherche.html">Recherche</a></li>
-                <li><a href="favoris.html">Mes Favoris</a></li>
-            </ul>
-        </div>
-    </nav>
+    <div class="fond2page">
+        
+        <nav>
+            <div class="containerNav">
+                <ul>
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="recherche.html">Recherche</a></li>
+                    <li><a href="favoris.html">Mes Favoris</a></li>
+                </ul>
+            </div>
+        </nav>
 
-    <main class="container">
+        <main class="container">
 
-        <h1>Projet 1 - Deezeez my project!</h1>
+            <h1>Projet 1 - Deezeez my project!</h1>
 
-        <h2>Mes Favoris</h2>
-        <p>Liste de mes favoris</p>
+            <h2>Mes Favoris</h2>
+            <p>Liste de mes favoris</p>
 
-        <div id="songs"></div>
+            <div id="songs"></div>
 
-        <script src="https://unpkg.com/jquery"></script>
+            <script src="https://unpkg.com/jquery"></script>
 
-        <script>
+            <script>
 
 
-                $(document).ready(function() {
-                    
-                    let favoris = [];
-                    for (let key in window.localStorage) {
-                        if (window.localStorage.getItem(key) !== null) {
-                            favoris.push( JSON.parse(window.localStorage.getItem(key)) );
+                    $(document).ready(function() {
+                        
+                        let favoris = [];
+                        for (let key in window.localStorage) {
+                            if (window.localStorage.getItem(key) !== null) {
+                                favoris.push( JSON.parse(window.localStorage.getItem(key)) );
+                            }
                         }
+
+
+                        const htmlContent = favoris.map(renderMusic).join('');
+                        $('div#songs').html(htmlContent);
+
+                        $('#songs').on('click', '.removeFavorite', onRemoveFavorite);
+
+                    });
+
+                    function onRemoveFavorite() {
+                        const id = $(this).attr('data-music-id');
+                        window.localStorage.removeItem(id); 
+                        location.reload(true); 
                     }
 
 
-                    const htmlContent = favoris.map(renderMusic).join('');
-                    $('div#songs').html(htmlContent);
+                    function renderMusic(music, index) {
+                        return `<article class="music">
+                            <img src="${music.album.cover}" alt="">
+                            <h3>${music.title}</h3>
+                            <p>${music.artist.name}</p>
+                            <p>${music.album.title}</p>
+                            <audio src="${music.preview}" controls></audio>
+                            <button class="removeFavorite" data-music-id="${music.id}">retirer des favoris</button>
+                        </article>`
 
-                    $('#songs').on('click', '.removeFavorite', onRemoveFavorite);
+                    }
 
-                });
+            </script>
 
-                function onRemoveFavorite() {
-                    const id = $(this).attr('data-music-id');
-                    window.localStorage.removeItem(id); 
-                    location.reload(true); 
-                }
+            
 
+        </main>
 
-                function renderMusic(music, index) {
-                    return `<article class="music">
-                        <img src="${music.album.cover}" alt="">
-                        <h3>${music.title}</h3>
-                        <p>${music.artist.name}</p>
-                        <p>${music.album.title}</p>
-                        <audio src="${music.preview}" controls></audio>
-                        <button class="removeFavorite" data-music-id="${music.id}">retirer des favoris</button>
-                    </article>`
-
-                }
-
-        </script>
-
-        
-
-    </main>
+    </div><!-- Fin .fond2page -->
     
 </body>
 </html>
