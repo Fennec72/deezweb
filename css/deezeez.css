@@ -64,7 +64,10 @@ nav a:hover {
     display: block;
 }
 
-.music button {
+.music button.addFavorite{
+    background-color: #0f0;
+}
+.music button.removeFavorite{
     background-color: #f00;
 }
 

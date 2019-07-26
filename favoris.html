@@ -27,10 +27,66 @@
         <h2>Mes Favoris</h2>
         <p>Liste de mes favoris</p>
 
-        <h3>Aucun favoris dans votr liste...</h3>
+        <div id="songs"></div>
+
 
         
-        <article class="music">
+        
+            
+        
+
+        <script src="https://unpkg.com/jquery"></script>
+
+        <script>
+
+
+                $(document).ready(function() {
+                    // window.localStorage.getItem('favori', 'jmpp77');
+                    // window.localStorage.setItem('favori', 'jmpp77');
+                    // window.localStorage.removeItem(jmpp77');
+
+
+                    
+                    
+                    let favoris = [];
+                    for (let key in window.localStorage) {
+                        if (window.localStorage.getItem(key) !== null) {
+                            favoris.push( JSON.parse(window.localStorage.getItem(key)) );
+                        }
+                    }
+
+                    console.log({ favoris });
+
+                    const htmlContent = favoris.map(renderMusic).join('');
+                    $('div#songs').html(htmlContent);
+
+                    $('#songs').on('click', '.removeFavorite', onRemoveFavorite);
+                });
+
+                function onRemoveFavorite() {
+                    const id = $(this).attr('data-music-id');
+                    window.localStorage.removeItem(id, JSON.stringify(music)); 
+                }
+
+                function renderMusic(music, index) {// <p>${music.album_id}</p> ${music.album_id.title}
+                    return `<article class="music">
+                        <img src="${music.album.cover}" alt="">
+                        <h3>${music.title}</h3>
+                        <p>${music.artist.name}</p>
+                        <p>${music.album.title}</p>
+                        <audio src="${music.preview}" controls></audio>
+                        <button class="removeFavorite" data-music-id="${music.id}">retirer des favoris</button>
+                    </article>`
+
+                    //  window.localStorage.setItem('favori', 'music.id'); 
+                    //  window.localStorage.removeItem('music.i);
+                    console.log(music);
+                }
+
+        </script>
+
+        
+        <!-- <article class="music">
             <img src="https://cdns-images.dzcdn.net/images/cover/e2b36a9fda865cb2e9ed1476b6291a7d/500x500-000000-80-0-0.jpg" alt="">
             <h3>Lose Yourself</h3>
             <p>Eminem / Curtain Call: The Hits</p>
@@ -50,7 +106,7 @@
             <p>Eminem / Curtain Call: The Hits</p>
             <audio src="https://cdns-preview-1.dzcdn.net/stream/c-13039fed16a173733f227b0bec631034-10.mp3" controls></audio>
             <button>ajouter au favoris</button>
-        </article>
+        </article> -->
 
         
 

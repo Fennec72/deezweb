@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap@4.3.1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/xcode.min.css">
+    <style>pre { border: thin solid silver; border-radius: 3px; }</style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <title>jQuery et localStorage</title>
+</head>
+<body class="container mt-4 pb-5">
+
+    <h1>localStorage</h1>
+
+    <p>L'API localStorage (disponible dans l'objet global <code>window.localStorage</code>) permet de stocker des informations persistentes dans le navigateur du visiteur (même principe que les cookies, mais utilisation différente)</p>
+
+    <p>L'API est très simple et ne comporte que 5 méthodes :</p>
+
+    <ul>
+        <li><code>window.localStorage.<strong>setItem</strong>(CLE, VALEUR)</code> Ajoute cette clé et cette valeur dans le stockage. Si la clé existe déjà, elle met à jour la valeur.</li>
+        <li><code>window.localStorage.<strong>getItem</strong>(CLE)</code> Renvoie la valeur de la clé correspondante.</li>
+        <li><code>window.localStorage.<strong>removeItem</strong>(CLE)</code> Supprime cette clé du stockage.</li>
+        <li><code>window.localStorage.<strong>clear</strong>()</code> Supprime toutes les clés du stockage.</li>
+        <li><code>window.localStorage.<strong>key</strong>()</code> Renvoie le nom de la n-ième clé dans le stockage.</li>
+    </ul>
+
+    <p>Exemple :</p>
+
+    <pre><code class="hljs js">window.localStorage.setItem('pseudo', 'jmpp77');</code></pre>
+
+    <p>Plus tard, on pourra récupérer la valeur de la clé <code>pseudo</code> avec :</p>
+
+    <pre><code class="hljs js">window.localStorage.getItem('pseudo'); // 'jmpp77'</code></pre>
+
+    <hr>
+
+    <p>Il n'est possible de sauvegarder que des Strings comme VALEUR, ainsi ceci n'est pas possible car la valeur est un Array :</p>
+
+    <pre><code class="hljs js">// ❌ Ne fonctionne PAS !
+window.localStorage.setItem('pseudos', ['jmpp77', 'lucas', 'arnaud92']);</code></pre>
+
+    <p>Dans le cas où l'on veut stocker un objet comme un Array, il faut d'abord le sérialiser avec la méthode <code>JSON.stringify();</code> :</p>
+
+    <pre><code class="hljs js">// ✅ Mieux
+const serializedPseudos = JSON.stringify(['jmpp77', 'lucas', 'arnaud92']);
+window.localStorage.setItem('pseudos', serializedPseudos);</code></pre>
+
+    <p>Et pour récupérer une valeur et la dé-sérialiser, on utilise la méthode inverse <code>JSON.parse();</code> :</p>
+
+    <pre><code class="hljs js">const serializedPseudos = window.localStorage.getItem('pseudos');
+const pseudos = JSON.parse(serializedPseudos); // Array ['jmpp77', 'lucas', 'arnaud92']
+</code></pre>
+
+    <hr>
+
+    <h2>Exemple</h2>
+
+    <p>Voici un exemple intéractif d'un système de gestion de pseudos, utilisant le localStorage :</p>
+
+    <p><a href="https://jsbin.com/qulugazedi/3/edit?html,js,output">https://jsbin.com/qulugazedi/3/edit?html,js,output</a></p>
+
+</body>
+</html>

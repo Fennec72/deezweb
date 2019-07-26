@@ -95,10 +95,20 @@
     </script> -->
 
 <script>
+
+    let MUSICS_RESULTS = [];
+
     $(document).ready(function() {
         
         $('form#search').on('submit', onsubmit);
+        $('#songs').on('click', '.addFavorite', onAddFavorite);
     });
+
+    function onAddFavorite() {
+        const id = $(this).attr('data-id');
+        const music = MUSICS_RESULTS[ id ];
+        window.localStorage.setItem(music.id, JSON.stringify(music)); 
+    }
 
     function onsubmit(event) {
         event.preventDefault(); // Empêche le navigateur de recharger la page
@@ -108,6 +118,7 @@
         searchOnDeezer(q, order);
         console.log(order);
     }
+
     function searchOnDeezer(q, order) {
         const API_URL = 'https://api.deezer.com/search';
         const params = { q : q, order : order , output : 'jsonp' };
@@ -124,6 +135,7 @@
     }
 
     function onSuccess({ data: musics}) {
+        MUSICS_RESULTS = musics;
         const htmlContent = musics.map(renderMusic).join('');
         $('div#songs').html(htmlContent);
     }
@@ -131,21 +143,23 @@
         $('div#songs').html(`<p>Une erreur est survenue : ${errorText.statusText}</p>`);
     }
 
-    function renderMusic(music) {// <p>${music.album_id}</p> ${music.album_id.title}
+    function renderMusic(music, index) {// <p>${music.album_id}</p> ${music.album_id.title}
         return `<article class="music">
                     <img src="${music.album.cover}" alt="">
                     <h3>${music.title}</h3>
                     <p>${music.artist.name}</p>
                     <p>${music.album.title}</p>
                     <audio src="${music.preview}" controls></audio>
-                    <button>ajouter au favoris</button>
+                    <button class="addFavorite" data-id="${index}">ajouter au favoris</button>
                 </article>`
+
+                    //  window.localStorage.setItem('favori', 'music.id'); 
+                    //  window.localStorage.removeItem('music.i);
                 console.log(music);
     }
 </script>
 
-    <!-- pour chosir le critère utilisé pour ordonner les résultats:
-    stocker les résultat dans un array, puis utiliser Array.sort() ? -->
+ 
 
 
 
