@@ -71,6 +71,10 @@ nav a:hover {
     background-color: #f00;
 }
 
+.reloadRandom {
+    background-color: cornflowerblue;
+}
+
  /*********/
 
 button {
@@ -121,6 +125,4 @@ input[type=search] {
     margin-right: 10px;
 
  }
- textarea{
-    /*your styles here.....*/
- }
+ 
